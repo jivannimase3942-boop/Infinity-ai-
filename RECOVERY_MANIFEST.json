@@ -1,0 +1,581 @@
+{
+  "manifest_version": "1.0.0",
+  "project": "Infinity AI \u2014 Private Offline AI Workstation",
+  "git_repository": "https://github.com/jivannimase3942-boop/Infinity-ai-",
+  "branch": "main",
+  "audit_timestamp": "2026-10-10T00:45:00Z",
+  "workstation_root": "D:/PrivateAI",
+  "external_models_root": "D:/models",
+  "backup_strategy_summary": {
+    "application_source_and_tests": "Version-controlled on GitHub main branch (Plaintext)",
+    "documentation_and_launchers": "Version-controlled on GitHub main branch (Plaintext)",
+    "private_databases_and_history": "AES-256 Encrypted multi-volume 7z archive in encrypted_backup/",
+    "historical_snapshots_and_code": "AES-256 Encrypted multi-volume 7z archive in encrypted_backup/",
+    "ai_model_weights": "Excluded from Git; Reproducible via Ollama & official HuggingFace hubs",
+    "runtime_environment": "Excluded from Git; Recreatable via Python venv & app/requirements.txt",
+    "security_hardware_markers": "Strictly Host-Local; Re-authorizable on authentic devices"
+  },
+  "statistics": {
+    "GITHUB_SOURCE_BACKUP": {
+      "count": 81,
+      "size_bytes": 15957372,
+      "size_mb": 15.22,
+      "size_gb": 0.01
+    },
+    "ENCRYPTED_PRIVATE_BACKUP": {
+      "count": 75,
+      "size_bytes": 88763090,
+      "size_mb": 84.65,
+      "size_gb": 0.08
+    },
+    "LARGE_MODEL_BACKUP": {
+      "count": 32,
+      "size_bytes": 14939198537,
+      "size_mb": 14247.13,
+      "size_gb": 13.91
+    },
+    "RECREATABLE_RUNTIME_DEPENDENCY": {
+      "count": 41160,
+      "size_bytes": 3414549673,
+      "size_mb": 3256.37,
+      "size_gb": 3.18
+    },
+    "SECURITY_FILE_NEVER_UPLOAD": {
+      "count": 14,
+      "size_bytes": 5484,
+      "size_mb": 0.01,
+      "size_gb": 0.0
+    },
+    "REGENERATABLE_CACHE_OR_TEMPORARY_FILE": {
+      "count": 112,
+      "size_bytes": 1779760,
+      "size_mb": 1.7,
+      "size_gb": 0.0
+    },
+    "LOCAL_WORKSPACE_BACKUPS": {
+      "count": 1744,
+      "size_bytes": 515095116,
+      "size_mb": 491.23,
+      "size_gb": 0.48
+    },
+    "TOTAL_ALL_INVENTORIED_FILES": {
+      "count": 43218,
+      "size_bytes": 18975349032,
+      "size_mb": 18096.3,
+      "size_gb": 17.67
+    }
+  },
+  "encrypted_archives": [
+    {
+      "filename": "infinity_ai_secure_data.7z.001",
+      "relative_path": "encrypted_backup/infinity_ai_secure_data.7z.001",
+      "size_bytes": 14610514,
+      "size_mb": 13.93,
+      "sha256": "e49638b134251f9bd61517d8c6d6da335a560665b0854409bf39680609ddd6ff",
+      "encryption_algorithm": "AES-256-CBC (7-Zip LZMA2 Header-Encrypted)",
+      "contents_description": "SQLite caches (ai_cache.db), ChromaDB stores, quarantined logs, and historical backups."
+    }
+  ],
+  "model_recovery_registry": [
+    {
+      "model_name": "qwen2.5:1.5b",
+      "format": "Ollama Manifest/Blobs (Q4_K_M)",
+      "size_bytes": 986048512,
+      "size_mb": 940.37,
+      "verified_recovery_source": "ollama pull qwen2.5:1.5b",
+      "role": "Fast chat, reasoning, code generation",
+      "local_manifest": "ollama-models/manifests/registry.ollama.ai/library/qwen2.5/1.5b",
+      "verified_downloadable": true
+    },
+    {
+      "model_name": "dolphin-mistral:latest",
+      "format": "Ollama Manifest/Blobs (Q4_K_M)",
+      "size_bytes": 4108928128,
+      "size_mb": 3918.58,
+      "verified_recovery_source": "ollama pull dolphin-mistral:latest",
+      "role": "Deep thinking, agent orchestration, uncensored analysis",
+      "local_manifest": "ollama-models/manifests/registry.ollama.ai/library/dolphin-mistral/latest",
+      "verified_downloadable": true
+    },
+    {
+      "model_name": "gemma3:4b",
+      "format": "Ollama Manifest/Blobs (Q4_K_M)",
+      "size_bytes": 3338792448,
+      "size_mb": 3184.12,
+      "verified_recovery_source": "ollama pull gemma3:4b",
+      "role": "Multimodal visual reasoning, instruction following",
+      "local_manifest": "ollama-models/manifests/registry.ollama.ai/library/gemma3/4b",
+      "verified_downloadable": true
+    },
+    {
+      "model_name": "faster-whisper-small",
+      "format": "CTranslate2 Int8/FP16",
+      "size_bytes": 483546902,
+      "size_mb": 461.15,
+      "verified_recovery_source": "https://huggingface.co/Systran/faster-whisper-small",
+      "role": "Offline voice transcription & STT",
+      "local_path": "models/whisper/models--Systran--faster-whisper-small",
+      "verified_downloadable": true
+    },
+    {
+      "model_name": "small.gguf",
+      "format": "GGUF Q4_K_M",
+      "size_bytes": 2497281120,
+      "size_mb": 2381.59,
+      "verified_recovery_source": "Local GGUF Model Archive / Ollama Modelfile",
+      "role": "Offline GGUF inference fallback",
+      "local_path": "models/small.gguf",
+      "verified_downloadable": true
+    },
+    {
+      "model_name": "gemma3-4b.gguf",
+      "format": "GGUF Q4_K_M",
+      "size_bytes": 3338792448,
+      "size_mb": 3184.12,
+      "verified_recovery_source": "HuggingFace google/gemma-3-4b-it GGUF Archive",
+      "role": "Local GGUF standalone runner",
+      "local_path": "models/gemma3-4b.gguf",
+      "verified_downloadable": true
+    },
+    {
+      "model_name": "dolphin-2.9-llama3-8b-Q4_K_M.gguf",
+      "format": "GGUF Q4_K_M",
+      "size_bytes": 183098314,
+      "size_mb": 174.62,
+      "verified_recovery_source": "cognitivecomputations/dolphin-2.9-llama3-8b GGUF Archive",
+      "role": "Secondary external storage model",
+      "local_path": "D:/models/dolphin-2.9-llama3-8b-Q4_K_M.gguf",
+      "verified_downloadable": true
+    }
+  ],
+  "database_integrity_audit": [
+    {
+      "database_path": "app/data/ai_cache.db",
+      "size_bytes": 139264,
+      "integrity_check": "ok",
+      "tables_count": 13,
+      "sha256": "dc3b7d7e98987df80f24f5d4c5cef7949d52f4b13cc0374fd3ff260f59498db3"
+    },
+    {
+      "database_path": "app/chroma_db/chroma.sqlite3",
+      "size_bytes": 6922240,
+      "integrity_check": "ok",
+      "tables_count": 21,
+      "sha256": "dafa568cf07e6dc85b4fe04aa50d8e449c0a2842a741311a3f3a59d77a2b3411"
+    },
+    {
+      "database_path": "data/chroma/chroma.sqlite3",
+      "size_bytes": 188416,
+      "integrity_check": "ok",
+      "tables_count": 21,
+      "sha256": "c3d69ee5615752e34acc008671580de2fca13ad4341b910d061ef96439817ed6"
+    }
+  ],
+  "tracked_files": [
+    {
+      "path": "start-windows.bat",
+      "size_bytes": 1674,
+      "sha256": "951a19b55ca22d7798e21743918b7052a599210adf2c4bb9a5407a44ab434405"
+    },
+    {
+      "path": "README.md",
+      "size_bytes": 25021,
+      "sha256": "d364403b3f16e3711f4889c8d1646bd71307d2591b90205640a09278ddf0e0e1"
+    },
+    {
+      "path": "test_doc.txt",
+      "size_bytes": 80,
+      "sha256": "ed77b8e2fe7b8c1f016e2b31375ffcb448b7c1bc7379bffcaa95f1ce3c84e2fd"
+    },
+    {
+      "path": "sample_contract.pdf",
+      "size_bytes": 1767,
+      "sha256": "5201b77f1cfc2a6a446384ecdf553f697589ac9bd8391d3c03c88b29ff38c25f"
+    },
+    {
+      "path": "safety_checkpoint.py",
+      "size_bytes": 2904,
+      "sha256": "d3cfc915bb087aabadb39d45357af43929dc48a3eb35232c9ce92450286ab56b"
+    },
+    {
+      "path": "check_camera.py",
+      "size_bytes": 900,
+      "sha256": "66f6c0e44e558d142877d728bcfa53d3c595cf98de709e9bcc428994630d8f32"
+    },
+    {
+      "path": "phase0_backup.py",
+      "size_bytes": 6464,
+      "sha256": "c6c62f6bbec70b26359a4f969d47b2ac67317c329d5e655d17980eb2c48c8cd2"
+    },
+    {
+      "path": "pre_password_backup.py",
+      "size_bytes": 6676,
+      "sha256": "4329c752fc6f8a6319d75a47cdf6b788c4b51a94fff9eb9ef642470d87df4cf8"
+    },
+    {
+      "path": "final_release_backup.py",
+      "size_bytes": 2093,
+      "sha256": "43e7049b997e818affbfea7d80f8478045453cee675b3adf70eb117504cbf308"
+    },
+    {
+      "path": ".gitignore",
+      "size_bytes": 1291,
+      "sha256": "efc93d7fda46909af57d2ea77ab82e2de258a6ef57c5add3e45bb408c8724fcf"
+    },
+    {
+      "path": "verify_manifest.py",
+      "size_bytes": 3770,
+      "sha256": "77969b7ffd419377ddd7e138ebc6dd4a860e02a48880fb889861e59bd276b7fc"
+    },
+    {
+      "path": "create_backup_archive.py",
+      "size_bytes": 3948,
+      "sha256": "b7e42d49d8932b5fa3b27715b1cf7a16beae7f3f11bcc271434a17d33fd8b0e1"
+    },
+    {
+      "path": "generate_recovery_artifacts.py",
+      "size_bytes": 11069,
+      "sha256": "9b4f876940ce54b1952ab8ba98f34fbea6d748247a3ec355c8da762eb4223858"
+    },
+    {
+      "path": "RECOVERY_GUIDE.md",
+      "size_bytes": 4282,
+      "sha256": "6a6d7531c77cc4863e84b420c683f0749df363e53de07e05646fdda339157ab7"
+    },
+    {
+      "path": "data/.gitkeep",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "app/.gitignore",
+      "size_bytes": 130,
+      "sha256": "ad177e9fb2077efe050edc1d127a2714eb09e7bd824b78f8d0c89060ad034f08"
+    },
+    {
+      "path": "app/app.py",
+      "size_bytes": 380,
+      "sha256": "4cd126b96b5687f132f34400e829d1ab3d32ede6be87df3c43c84ead5f6e0677"
+    },
+    {
+      "path": "app/README.md",
+      "size_bytes": 25021,
+      "sha256": "d364403b3f16e3711f4889c8d1646bd71307d2591b90205640a09278ddf0e0e1"
+    },
+    {
+      "path": "app/requirements.txt",
+      "size_bytes": 233,
+      "sha256": "46662e86e6b8f59c86c446b36bae93c1f31ba91dc20fba26d57afd6bb6413515"
+    },
+    {
+      "path": "app/run.bat",
+      "size_bytes": 483,
+      "sha256": "b6c59a430a1371a5c6a2ae300e8b96ddc6c57eda0366db6c797c87e5cf6fe67a"
+    },
+    {
+      "path": "app/test_upgrade_suite.py",
+      "size_bytes": 10915,
+      "sha256": "abe302ab8710f92d03ecd33fe54d70c7e304bebd9f104939506c98971fd318d9"
+    },
+    {
+      "path": "app/test_reliability_suite.py",
+      "size_bytes": 22523,
+      "sha256": "ac4aa48d2e50297da26f7ec6c3ede6b228d9809e6ed01ff0c22ce1cd06a51c4a"
+    },
+    {
+      "path": "app/test_final_polish_suite.py",
+      "size_bytes": 9779,
+      "sha256": "4818e3e1e19d57b2eab2a7c11d88f040a53e3be872b3efc6a7a376dc25eb8f8e"
+    },
+    {
+      "path": "app/test_gui_integration.py",
+      "size_bytes": 4842,
+      "sha256": "fb0030a801d4e12ad59cbcfbbf887850e7a17300969082488948569701fe0e73"
+    },
+    {
+      "path": "app/test_final_customer_acceptance.py",
+      "size_bytes": 12498,
+      "sha256": "447e1e6e0bc8a3ea9edd43e05588acd7513f54e36b3130eeacda1ba4bee74cd9"
+    },
+    {
+      "path": "app/test_master_production_suite.py",
+      "size_bytes": 16765,
+      "sha256": "e962e5a35396c1febb3fbd2b58e3ed07e04826c96b8f4184340e427f131efb4b"
+    },
+    {
+      "path": "app/test_password_security.py",
+      "size_bytes": 18033,
+      "sha256": "2d518d1cc4503fd08ce71f577979b8ee8be5dee2fe28b383465346397f62f3d3"
+    },
+    {
+      "path": "app/test_startup_flow.py",
+      "size_bytes": 15174,
+      "sha256": "63b5a5668d5b70e572be19e20480a6c8af936e5e40ff5bf2c5360f30ceb61fd8"
+    },
+    {
+      "path": "app/test_recommendations.py",
+      "size_bytes": 14183,
+      "sha256": "9a8cce4dd45196b87841032991a962d636b6e1d4425d6e4f6966ea09835cf30c"
+    },
+    {
+      "path": "app/test_upgrade_tasks_suite.py",
+      "size_bytes": 14970,
+      "sha256": "e08d93ab553d763702098deeca4bc4a7700816ac51fd8b14416fbbe34c1c291f"
+    },
+    {
+      "path": "app/backend/ai_engine.py",
+      "size_bytes": 23659,
+      "sha256": "306bdfc885e5c4f906afe541cf9597b0b03dcdf724a6b217e808af07adc02928"
+    },
+    {
+      "path": "app/backend/cache.py",
+      "size_bytes": 2937,
+      "sha256": "5819bb7d813eac02df985c78c044e8a0d28d45400622c4bf293418a311ae415a"
+    },
+    {
+      "path": "app/backend/chunker.py",
+      "size_bytes": 1486,
+      "sha256": "cd57cdb9323b2e5fa8d5ba61d3f5952a2d7c7be552858b37e7d89e90bf6fd03c"
+    },
+    {
+      "path": "app/backend/embeddings.py",
+      "size_bytes": 744,
+      "sha256": "12ce10e257ee5bd5a123f1fd9306582d84d17031f460cb26f5f49b60e333c718"
+    },
+    {
+      "path": "app/backend/pdf_processor.py",
+      "size_bytes": 7160,
+      "sha256": "13c7a8e7d9c21ce0f55e0a5be1fedbb64419e96272c9388ea158c0db6bf1586d"
+    },
+    {
+      "path": "app/backend/summarizer.py",
+      "size_bytes": 5592,
+      "sha256": "bf99a7ef38a499da784a2106f41a1e32bffc1b506d056786e67379dee8ebffe8"
+    },
+    {
+      "path": "app/backend/vector_store.py",
+      "size_bytes": 13555,
+      "sha256": "31ccd67f194b0ee9fd419f5cd837670bf3d0538365745ef63dace9fdfc496012"
+    },
+    {
+      "path": "app/backend/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "app/backend/security.py",
+      "size_bytes": 15553,
+      "sha256": "0bb2b3eb9988aa4e28d3187777680f0190079140ef7c173e91d89fcd5b5f8667"
+    },
+    {
+      "path": "app/backend/db.py",
+      "size_bytes": 40416,
+      "sha256": "c34b0634a8a9e62031e87ea2b9956f1b61f6cebd1dadc324569a0c774d88a383"
+    },
+    {
+      "path": "app/backend/model_manager.py",
+      "size_bytes": 7253,
+      "sha256": "4532213d01ca83bf7c750756dbb6eb42cb438dfb1995c82e48087ccb50e8fcdc"
+    },
+    {
+      "path": "app/backend/router.py",
+      "size_bytes": 10494,
+      "sha256": "3b29382973784f2dee51d4ce0065ad0e1607cb84fdfc0f3f62a6f3146891c14d"
+    },
+    {
+      "path": "app/backend/rag_engine.py",
+      "size_bytes": 10904,
+      "sha256": "8f577f3808c23db170676108a772a55f448923a6fa4b67e2ffd9c24607ca2f39"
+    },
+    {
+      "path": "app/backend/memory.py",
+      "size_bytes": 2612,
+      "sha256": "25f6a242902b50bb3e92fb242f00364e315a12de8b17c55bd2a5d6a01342e7df"
+    },
+    {
+      "path": "app/backend/projects.py",
+      "size_bytes": 2543,
+      "sha256": "4534f7a27ecdb0580ef5125a43fd13fa07bc122b892ec848889c5b2e0ecdd6f0"
+    },
+    {
+      "path": "app/backend/ocr_vision.py",
+      "size_bytes": 4697,
+      "sha256": "a383e5dd030cde07da8de5f106ce0348f1fb49b8b49dbff0b24f8a190bd2a9dd"
+    },
+    {
+      "path": "app/backend/tools.py",
+      "size_bytes": 11121,
+      "sha256": "e3c45c0adfa410a6b406907becd115b4d0e09ab5bb00a5581531636d8dfc87f8"
+    },
+    {
+      "path": "app/backend/agents.py",
+      "size_bytes": 10019,
+      "sha256": "9513821c490990cbabb48ac49e90b6c555b92493147a1479d569cae09dbc7585"
+    },
+    {
+      "path": "app/backend/diagnostics.py",
+      "size_bytes": 7309,
+      "sha256": "a5abd50c0ed4bf7cec25859079c7ba4aa016e9466b6c25abc50cec8126d93bb2"
+    },
+    {
+      "path": "app/backend/voice.py",
+      "size_bytes": 18644,
+      "sha256": "9f077a03a7973585bd851b6e197c039fb43dc55ecdeee391a9e8b42a7727842f"
+    },
+    {
+      "path": "app/backend/slash_commands.py",
+      "size_bytes": 4680,
+      "sha256": "cb3ae9b6d506f4fb1441cbfed505156b18126c14314749d7bb70cdb930d27bf8"
+    },
+    {
+      "path": "app/backend/file_ops.py",
+      "size_bytes": 14193,
+      "sha256": "1985130ae4db29907a0ac3d96dea3fb6f324a8f3229c98d2793c1125f82aa548"
+    },
+    {
+      "path": "app/backend/study_analysis.py",
+      "size_bytes": 8324,
+      "sha256": "3a96b88e1a407c6c638f5a86b8d2f1d65e506ac8264be1fe1d197fb93204b97a"
+    },
+    {
+      "path": "app/backend/artifacts.py",
+      "size_bytes": 3784,
+      "sha256": "5d73224b7df81d18d8489de2e9e31681decae536c6b0f004fdb4873321458dac"
+    },
+    {
+      "path": "app/backend/camera.py",
+      "size_bytes": 3231,
+      "sha256": "b142c5f41440d18deb4ea7f0dc7d0abafe2a460a612c6d20c7b384600ea8a36a"
+    },
+    {
+      "path": "app/backend/memory_graph.py",
+      "size_bytes": 6534,
+      "sha256": "757162a5e7acb9f8a2eca23adeeb05a4c1517d6d9995c29fa52ae6da6233d75c"
+    },
+    {
+      "path": "app/backend/adaptive_preferences.py",
+      "size_bytes": 5866,
+      "sha256": "b1db12b91be11c09edefbc7ee9429bd22c611a69d11ed3dd23ceb53456fe35b3"
+    },
+    {
+      "path": "app/backend/intent_engine.py",
+      "size_bytes": 16971,
+      "sha256": "dc6d3ccd308e78bc68a4d7c679b0b072ef1931228b9efaaf54e693b2b0357ded"
+    },
+    {
+      "path": "app/backend/self_critique.py",
+      "size_bytes": 3203,
+      "sha256": "6341d2c18a1020340106e6515b8e859c53c64adb1955c26f9eb369a0b7843b63"
+    },
+    {
+      "path": "app/backend/task_agent.py",
+      "size_bytes": 4678,
+      "sha256": "ca42f8d0a6f3fc093910c4dcf9abbd911f7ec702de6da1bd1ae22de2fc65bb2b"
+    },
+    {
+      "path": "app/backend/deep_research.py",
+      "size_bytes": 3549,
+      "sha256": "0910037cef7ac8bb90abfc25dd188324807a5c6f372f51286b8b6c501a6cad06"
+    },
+    {
+      "path": "app/backend/password_auth.py",
+      "size_bytes": 24616,
+      "sha256": "15a0469451a5e17389110ed4572d6f9372505090f282cbe9cbb872277282e391"
+    },
+    {
+      "path": "app/backend/datetime_engine.py",
+      "size_bytes": 16848,
+      "sha256": "0a30b9cbc62cf873ff10e2036a5fc597ed3081d759bac7764a2a5a03d26c58bf"
+    },
+    {
+      "path": "app/backend/capability_engine.py",
+      "size_bytes": 5601,
+      "sha256": "3be2fac0fc00d4a6d451be7efa787de13b6f3a4cbbea40310420f945404ecc37"
+    },
+    {
+      "path": "app/data/.gitkeep",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "app/frontend/chat_panel.py",
+      "size_bytes": 91582,
+      "sha256": "11439fcc458c73e277171f9ca38b5c03507bef8e39b4406e56adf45d26e746e0"
+    },
+    {
+      "path": "app/frontend/markdown_renderer.py",
+      "size_bytes": 15168,
+      "sha256": "51162705f61c90b11e8421d4305a7662d1b0f5218fad557ab1a5158297bcf002"
+    },
+    {
+      "path": "app/frontend/pdf_viewer.py",
+      "size_bytes": 17478,
+      "sha256": "ebb1cf056b0c195283cc8c37c4825247fe78ef1e98eee7af35aa7f822b3e26ff"
+    },
+    {
+      "path": "app/frontend/sidebar.py",
+      "size_bytes": 16330,
+      "sha256": "5823ea7816a1c70f473b5b37469fc34373e6f40eb59510b9a062ae51d3eac576"
+    },
+    {
+      "path": "app/frontend/ui.py",
+      "size_bytes": 52053,
+      "sha256": "118a57d3bcefa6c3d1a3800f5a5545f379931e9c26f51e7c9670daa110a50364"
+    },
+    {
+      "path": "app/frontend/welcome_screen.py",
+      "size_bytes": 4616,
+      "sha256": "fabeaefcf1866c1fa19a1b0a42352d4674184045ceb0c63d6392e0d1dc2022da"
+    },
+    {
+      "path": "app/frontend/__init__.py",
+      "size_bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "app/frontend/workspaces.py",
+      "size_bytes": 66085,
+      "sha256": "35f373afe1ac9154d874b24cea81152dd52bae0f6df5ded5a68a1f5865596a7c"
+    },
+    {
+      "path": "app/frontend/command_palette.py",
+      "size_bytes": 10323,
+      "sha256": "d36e6422db9a9878194f97ba775501d5fbff26f5329256d4510cb40fc892cd89"
+    },
+    {
+      "path": "app/frontend/artifact_viewer.py",
+      "size_bytes": 7709,
+      "sha256": "15fd2c1096cba10f90a303d848dd2578d66ad2979178b4dadcc3c0f1b7ae96bd"
+    },
+    {
+      "path": "app/frontend/toast.py",
+      "size_bytes": 2562,
+      "sha256": "377006228b7686d48cec1e90c298781895500cb5b66142c4504f8bce6e9a3f23"
+    },
+    {
+      "path": "app/frontend/lock_overlay.py",
+      "size_bytes": 30403,
+      "sha256": "a95b42c0ba88d50e4ce7a9065dbc73f60f863655aa6a04b2aca8f02ac73b4b7b"
+    },
+    {
+      "path": "app/frontend/theme.py",
+      "size_bytes": 7489,
+      "sha256": "067972590eb9b40eddd3b1b7f9f6a6e0a38a254569736ea2c763340c4338ac1d"
+    },
+    {
+      "path": "app/frontend/branding.py",
+      "size_bytes": 486,
+      "sha256": "4e1d8012de3a9050883469d5ac2ec3bd8273e7ffe7fd213ab7174bed1b5ea9d0"
+    },
+    {
+      "path": "app/assets/infinity_logo.png",
+      "size_bytes": 467930,
+      "sha256": "5626b03b772606311784f5d92fb60f5c300d3046d701ad48a17150c8576202a2"
+    },
+    {
+      "path": "encrypted_backup/infinity_ai_secure_data.7z.001",
+      "size_bytes": 14610514,
+      "sha256": "e49638b134251f9bd61517d8c6d6da335a560665b0854409bf39680609ddd6ff"
+    }
+  ]
+}
