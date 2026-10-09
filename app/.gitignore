@@ -1,0 +1,17 @@
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+.env.*
+.vscode/
+.idea/
+chroma_db/
+data/*.db
+data/*.log
+*.log
+build/
+dist/
+*.spec

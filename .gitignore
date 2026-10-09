@@ -1,0 +1,66 @@
+# ============================================================
+# Infinity AI - Git Ignore Configuration
+# ============================================================
+
+# 1. Embedded Runtimes & Binaries (Exceeds GitHub limits / platform-specific)
+/bin/
+/libs/
+
+# 2. Large AI Models (Managed & downloaded separately)
+/models/
+/ollama-models/
+*.gguf
+*.bin
+*.safetensors
+*.onnx
+*.pt
+*.pth
+
+# 3. Sensitive Authorization, Device IDs & Hardware Markers
+.infinity-ai-authorized
+.device_auth.json
+.workspace_identity.json
+.quarantine_log.json
+*authorized*
+
+# 4. Local Databases, Vector Stores, Caches & Logs
+/data/*
+!/data/.gitkeep
+/chroma_db/
+app/data/*
+!app/data/.gitkeep
+app/chroma_db/
+app/chroma_db_quarantined_*/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.log
+/browser-profile/
+
+# 5. Local Drive Snapshots & Backup Archives
+/backups/
+
+# 6. Python Environments, Bytecode & Test Caches
+__pycache__/
+*/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+.pytest_cache/
+app/.pytest_cache/
+build/
+dist/
+*.spec
+
+# 7. IDE & OS Metadata
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+=
