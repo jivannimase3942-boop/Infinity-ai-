@@ -5,6 +5,11 @@
 # 1. Embedded Runtimes & Binaries (Exceeds GitHub limits / platform-specific)
 /bin/
 /libs/
+*.exe
+*.dll
+*.so
+*.dylib
+*.pyd
 
 # 2. Large AI Models (Managed & downloaded separately)
 /models/
@@ -18,10 +23,15 @@
 
 # 3. Sensitive Authorization, Device IDs & Hardware Markers
 .infinity-ai-authorized
+*.infinity-ai-authorized
 .device_auth.json
+*.device_auth.json
 .workspace_identity.json
+*.workspace_identity.json
 .quarantine_log.json
+*.quarantine_log.json
 *authorized*
+*identity.json
 
 # 4. Local Databases, Vector Stores, Caches & Logs
 /data/*
@@ -47,10 +57,11 @@ __pycache__/
 */__pycache__/
 *.pyc
 *.pyo
-*.pyd
 .venv/
 venv/
 env/
+.env
+.env.*
 .pytest_cache/
 app/.pytest_cache/
 build/
@@ -63,4 +74,3 @@ dist/
 .DS_Store
 Thumbs.db
 desktop.ini
-=

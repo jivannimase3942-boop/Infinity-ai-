@@ -1,6 +1,6 @@
 # Infinity AI — Private Offline AI Workstation
 
-> **"Your AI. Your files. Your machine. Zero Cloud. 100% Private."**
+> **"Your AI. Your Files. Your Machine. Offline-First. Privacy-Focused."**
 
 Infinity AI is a production-grade, local, offline-first AI workstation engineered for Windows. It combines a ChatGPT/Claude-style desktop experience with deep local document intelligence, project isolation, safe tool execution, multimodal vision, offline voice, and laptop-level privacy isolation backed by USB key authorization.
 
@@ -11,17 +11,17 @@ Infinity AI is a production-grade, local, offline-first AI workstation engineere
 ### The Core Principle: USB = KEY, Laptop = DATA STORAGE
 **The USB drive is strictly an authorization / security key. It is NOT a portable data storage drive.**
 
-* **What the USB Contains**:
+* **What the USB Key Contains**:
   - A cryptographic device authorization marker (`.infinity-ai-authorized`).
-  - Zero private chats.
+  - Zero private chats or conversation history.
   - Zero databases (`*.db`, `*.sqlite`).
   - Zero vector embeddings (`ChromaDB`).
   - Zero project documents, notes, or artifacts.
-  - Zero personal files or model weights.
-* **What the Laptop Contains**:
-  - The host laptop's local private database (`D:\PrivateAI\app\data\ai_cache.db`).
-  - The host laptop's ChromaDB vector store (`D:\PrivateAI\app\chroma_db`).
-  - The host laptop's conversations, memories, projects, and artifacts.
+  - Zero personal files or heavy model weights.
+* **What the Host Laptop Contains**:
+  - The host laptop's local private database (`app/data/ai_cache.db`).
+  - The host laptop's ChromaDB vector store (`app/chroma_db/` or `data/chroma/`).
+  - The host laptop's conversations, memories, projects, and generated artifacts.
 
 ### Independent Laptop Workspaces (Laptop A vs Laptop B)
 Each computer running Infinity AI maintains an independent, isolated workspace:
@@ -30,8 +30,8 @@ USB Key + Laptop A  =  Laptop A Private Workspace
 USB Key + Laptop B  =  Laptop B Private Workspace
 USB Key Alone       =  Zero Private Data
 ```
-- **Absolute Privacy Rule**: The same USB may authorize both Laptop A and Laptop B, but **no private data is ever transferred or synchronized between them**.
-- Chats created on Laptop A ("Laptop A Secret Chat") stay exclusively on Laptop A.
+- **Absolute Privacy Rule**: The same USB key may authorize both Laptop A and Laptop B, but **no private data is ever transferred or synchronized between them**.
+- Chats created on Laptop A stay exclusively on Laptop A.
 - Laptop B starts with a clean, fresh workspace upon authorization; it will never see Laptop A's chats, memory, or documents.
 - Automatic USB data synchronization is strictly forbidden by architectural design.
 
@@ -44,7 +44,7 @@ USB Key Alone       =  Zero Private Data
      🔒 Private Workspace Locked
      Authorized USB was removed.
      Your private data remains safe on this computer.
-     [ Reconnect USB ]   [ Read-Only Mode ]
+     [ Reconnect USB ]   [ Enter Password ]   [ Read-Only Mode ]
      ```
   4. Local data remains 100% intact on the laptop disk; zero deletion, zero crashing.
 - **When USB is Reconnected**:
@@ -65,7 +65,7 @@ When an authorized USB is inserted into a new computer for the first time:
 4. **No Permission Spam**: Once authorized, the user is never asked for permission to send messages, create projects, save memory, or attach files. Only destructive actions (permanent deletion, workspace reset) require a single confirmation.
 
 ### Cloned-Database Quarantine & Workspace Isolation
-If an entire `PrivateAI` directory is copied from Laptop A to Laptop B:
+If an entire application directory containing local data is copied from Laptop A to Laptop B:
 1. **Device ID Verification**: On startup, Infinity AI compares the host machine's unique `device_id` against the `workspace_metadata` table in `ai_cache.db` and `.chroma_workspace_identity.json` in `chroma_db/`.
 2. **Safe Quarantine (Zero Deletion)**: If a foreign device ID is detected, the database is **NEVER** deleted, wiped, or overwritten. Instead, it is safely moved and quarantined:
    - Database: `app/data/ai_cache_quarantined_<foreign_id>_<timestamp>.db`
@@ -74,18 +74,11 @@ If an entire `PrivateAI` directory is copied from Laptop A to Laptop B:
 4. **Result**: Laptop A's confidential data is never exposed on Laptop B, while preserving all original data for recovery.
 
 ### Physical Drive Deployment Architecture
-- **Current Machine Configuration**:
-  - `C:` = Fixed Windows NVMe/SSD (Operating System).
-  - `D:` = 32 GB Removable Flash Drive (`PRIVATEL`, DriveType == 2).
-  - When `PrivateAI` resides on `D:\PrivateAI`, the anti-self-authorization guard blocks `D:` from self-authorizing. A diagnostics warning is presented:
-    ```
-    "Infinity AI is currently installed on a removable drive (D:).
-    For normal secure deployment, install the application on a fixed
-    internal drive (e.g., C:\PrivateAI) and use a separate USB as the authorization key."
-    ```
-- **Standard Secure Target Deployment**:
-  - Install the application on the laptop's internal fixed SSD (`C:\PrivateAI`).
-  - Use the removable USB flash drive (`D:\`) with `.infinity-ai-authorized` as the external physical authorization key.
+- **Standard Recommended Deployment**:
+  - Install the application and keep local databases on the laptop's internal fixed SSD (`C:\InfinityAI` or any chosen project folder).
+  - Use a removable USB flash drive (e.g. `E:\` or `F:\`) containing `.infinity-ai-authorized` as the external physical authorization key.
+- **Anti-Self-Authorization Guard**:
+  - When running entirely from a removable drive, Infinity AI detects the removable drive type and prevents the hosting drive from self-authorizing without a distinct external key or password verification.
 
 ---
 
@@ -240,120 +233,209 @@ Maintain strict context boundaries across 8 pre-configured domains:
 
 ---
 
+## ⚙️ Feature Verification Matrix
+
+| Subsystem / Feature | Implementation Status | Runtime Dependencies |
+| :--- | :---: | :--- |
+| **CustomTkinter GUI Workstation** | ✅ Verified | Python 3.10+ & `customtkinter` |
+| **USB Key Hardware Authorization** | ✅ Verified | Any USB Flash Drive |
+| **Password Auth & Lock Overlay** | ✅ Verified | Local SHA-256 / PBKDF2 hash |
+| **Workspace & Database Quarantine** | ✅ Verified | Built-in SQLite & Device GUID |
+| **Multi-Turn Chat & Artifacts** | ✅ Verified | Local LLM / Ollama |
+| **RAG & Hybrid Vector Search** | ✅ Verified | ChromaDB & Embedding engine |
+| **Multi-Format Document Parsing** | ✅ Verified | PyMuPDF, python-docx, openpyxl |
+| **Autonomous Task Agents & 9 Tools** | ✅ Verified | Internal Python sandboxed tools |
+| **Deep Research & Self-Critique** | ✅ Verified | Internal iterative refinement engine |
+| **Local Model Dynamic Router** | ✅ Verified | Ollama API endpoint (`127.0.0.1:11435` or `:11434`) |
+| **Multimodal Vision** | ⚡ Optional / Hardware-Aware | Vision model (`llama3.2-vision` / `llava`) |
+| **Tesseract OCR Ingestion** | ⚡ Optional / External Binary | [Tesseract OCR for Windows](https://github.com/UB-Mannheim/tesseract/wiki) |
+| **Offline Voice STT (Whisper)** | ⚡ Optional / Hardware-Aware | `faster-whisper` & audio input device |
+| **Offline Voice TTS (SAPI)** | ✅ Verified | Windows SAPI (built-in Windows speech) |
+
+---
+
 ## ⌨️ Universal Keyboard Shortcuts & Command Palette
 
 | Shortcut | Action |
 | :--- | :--- |
-| `Ctrl + N` | New Chat |
-| `Ctrl + K` / `Ctrl + Shift + P` | Open Command Palette |
+| `Ctrl + N` | New Chat (Clears temporary state safely) |
+| `Ctrl + K` / `Ctrl + Shift + P` | Open Command Palette (Fuzzy search all 12 views) |
 | `Ctrl + O` | Open Document / Attach File |
 | `Ctrl + L` | Focus Message Composer |
 | `Ctrl + Shift + V` | Toggle Voice Assistant |
 | `Ctrl + Shift + L` | Manually Lock Private Workspace |
 | `Ctrl + Enter` | Send Message |
-| `Esc` | Stop Active Generation / Purge Speech |
-
-### Command Palette (`Ctrl + K`)
-Quickly switch between all 12 views, trigger diagnostics, search conversations, or lock the workstation with fuzzy search.
+| `Esc` | Stop Active Generation / Purge Speech Queue |
 
 ---
 
 ## 🚦 15-Point System Diagnostics Matrix
 
 Access live telemetry anytime in the Diagnostics Workspace:
-1. **Python Environment**: Local runtime path (`D:\PrivateAI\bin\python\python.exe`).
-2. **Ollama Server**: Local loopback daemon (`127.0.0.1:11435`).
-3. **Local Models**: Inventory of Ollama blobs and GGUF models.
-4. **GPU Acceleration**: NVIDIA GeForce RTX 3050 status.
-5. **VRAM Capacity & Usage**: Real-time VRAM allocation tracking.
-6. **System RAM**: Physical RAM usage and total headroom.
-7. **CPU**: Logical core count and CPU load.
-8. **SQLite Database**: Schema integrity (`PRAGMA integrity_check`).
+1. **Python Environment**: Active runtime path and version.
+2. **Ollama Server**: Loopback daemon connection status (`127.0.0.1:11435` or `127.0.0.1:11434`).
+3. **Local Models**: Inventory of installed Ollama models and local GGUFs.
+4. **GPU Acceleration**: CUDA / DirectML GPU compute availability.
+5. **VRAM Capacity & Usage**: Real-time dedicated VRAM allocation tracking.
+6. **System RAM**: Physical RAM usage and available headroom.
+7. **CPU**: Logical core count and CPU utilization percentage.
+8. **SQLite Database**: Schema integrity verification (`PRAGMA integrity_check`).
 9. **ChromaDB Vector Store**: Vector collection count and chunk indexing status.
-10. **Tesseract OCR**: Local OCR binary verification.
+10. **Tesseract OCR**: Local OCR binary path verification.
 11. **Vision Engine**: Multimodal model availability.
-12. **Local STT**: Windows Speech Recognition language profile.
+12. **Local STT**: Speech recognition engine status.
 13. **Local TTS**: Windows SAPI speech synthesis status.
 14. **USB Key Authorization**: Removable drive authorization check.
-15. **Storage Capacity**: Free disk space on workstation volumes.
+15. **Storage Capacity**: Free disk space on host workstation drives.
 
 ---
 
-## 🛠️ Startup & Running
+## 🚀 Quickstart & Installation Guide (Windows)
 
-### Starting Infinity AI
-Run the desktop launcher from PowerShell or Command Prompt:
+### 1. Prerequisites
+- **Operating System**: Windows 10 or Windows 11 (64-bit)
+- **Python**: Python 3.10, 3.11, or 3.12 ([python.org](https://www.python.org/downloads/)) — Ensure **"Add Python to PATH"** is checked during installation.
+- **Ollama**: [Download Ollama for Windows](https://ollama.com/download)
+- *(Optional)* **Tesseract OCR**: [Tesseract installer for Windows](https://github.com/UB-Mannheim/tesseract/wiki) (for scanned image OCR)
 
+### 2. Clone the Repository
 ```cmd
-D:\PrivateAI\start-windows.bat
+git clone https://github.com/jivannimase3942-boop/Infinity-ai-.git
+cd Infinity-ai-
 ```
 
-The script automatically:
-1. Launches the private local Ollama daemon on loopback port `11435`.
-2. Sets `PYTHONPATH` to `D:\PrivateAI\libs;D:\PrivateAI\app`.
-3. Validates hardware and launches the desktop workstation.
+### 3. Setup Python Virtual Environment
+```cmd
+:: Create virtual environment
+python -m venv .venv
+
+:: Activate virtual environment
+call .venv\Scripts\activate
+
+:: Upgrade pip and install dependencies
+python -m pip install --upgrade pip
+pip install -r app/requirements.txt
+```
+
+### 4. Setup Local AI Models (No Weights in Git)
+Infinity AI connects to your local Ollama daemon. Large model binaries are never stored in the repository.
+
+1. Start the Ollama server:
+   ```cmd
+   ollama serve
+   ```
+2. In a separate command prompt, pull your preferred models:
+   ```cmd
+   :: Recommended fast text model (7B)
+   ollama pull qwen2.5:7b
+
+   :: Recommended lightweight multimodal vision model
+   ollama pull llama3.2-vision
+
+   :: Recommended compact model for low-spec machines
+   ollama pull qwen2.5:3b
+   ```
+3. *(Optional)* If using standalone GGUF model files, place them in the `models/` directory.
+
+### 5. Setup USB Security Key
+1. Insert any USB flash drive into your computer (e.g. drive `E:`).
+2. Create an empty authorization key file in the root directory of the USB drive:
+   ```cmd
+   type nul > E:\.infinity-ai-authorized
+   ```
+*(Note: If you launch without a USB drive, Infinity AI allows you to set a local workspace password as a fallback).*
+
+### 6. Launch Infinity AI
+```cmd
+:: Make sure the virtual environment is activated
+call .venv\Scripts\activate
+
+:: Launch the workstation
+cd app
+python app.py
+```
+*Alternatively, double-click `app/run.bat`.*
 
 ---
 
 ## 💾 Backup, Recovery & Troubleshooting
 
-### Automatic Timestamped Backups
-Backups are created under `D:\PrivateAI\backups\`:
-- `backup-2026-10-05-001` (Baseline)
-- `backup-2026-10-05-002` (Phase 2 Baseline)
-- `backup-2026-10-05-003` (Phase 3 Master Rollback Point)
+### Local Private Data Locations
+Your private data is stored exclusively on your host machine inside the application memory structure:
+- **SQLite Database**: `app/data/ai_cache.db`
+- **Vector Embeddings**: `app/chroma_db/` or `data/chroma/`
+- **Workspace Auth Tokens**: `app/data/.workspace_identity.json`
 
-### Rollback Procedure
-If database migration or filesystem corruption occurs:
+### Creating a Manual Backup
+To back up your private conversations and indexed documents safely:
+```cmd
+:: From the project root, copy the data folder to your backup location
+mkdir C:\InfinityAI_Backups\backup_YYYYMMDD
+xcopy /E /I /H app\data C:\InfinityAI_Backups\backup_YYYYMMDD\data
+xcopy /E /I /H app\chroma_db C:\InfinityAI_Backups\backup_YYYYMMDD\chroma_db
+```
+
+### Restoring from Backup
 1. Close Infinity AI.
-2. Restore `ai_cache.db` and configuration files from the latest verified backup directory:
+2. Copy the backed-up `ai_cache.db` back into `app/data/ai_cache.db`.
+3. Verify database integrity:
    ```cmd
-   copy D:\PrivateAI\backups\backup-2026-10-05-003\data\ai_cache.db D:\PrivateAI\app\data\ai_cache.db
+   python -c "import sqlite3; con=sqlite3.connect('app/data/ai_cache.db'); print('DB Status:', con.execute('PRAGMA integrity_check').fetchall())"
    ```
-3. Run the database verification check:
-   ```powershell
-   D:\PrivateAI\bin\python\python.exe -c "import sqlite3; con=sqlite3.connect('D:/PrivateAI/app/data/ai_cache.db'); print(con.execute('PRAGMA integrity_check').fetchall())"
-   ```
+4. Restart Infinity AI.
 
-### Troubleshooting
-- **Ollama Not Responding**: Restart the daemon:
-  ```powershell
-  $env:OLLAMA_MODELS="D:\PrivateAI\ollama-models"; $env:OLLAMA_HOST="127.0.0.1:11435"; D:\PrivateAI\bin\ollama\ollama.exe serve
-  ```
-- **Workspace Locked Unexpectedly**: Ensure your authorized USB key is inserted. If moving to a new laptop, click `[Authorize Computer]` on the prompt screen.
-- **Microphone Unavailable**: Verify Windows Microphone permissions under `Settings > Privacy & Security > Microphone`. Infinity AI falls back cleanly to text input without crashing.
+### Common Troubleshooting
+- **Ollama Not Responding**: Ensure the Ollama daemon is running with `ollama serve`. If using a custom port (e.g., `11435`), set `set OLLAMA_HOST=127.0.0.1:11435`.
+- **Workspace Locked Unexpectedly**: Ensure your authorized USB key is plugged in with `.infinity-ai-authorized` present, or unlock using your configured master password.
+- **Microphone Unavailable**: Verify Windows Microphone permissions under `Settings > Privacy & Security > Microphone`. Infinity AI cleanly falls back to text mode if audio devices are unavailable.
 
 ---
 
 ## 🧪 Automated Verification & Testing
 
-Infinity AI includes a complete automated test suite verifying 100% of all workstation subsystems:
+Infinity AI includes comprehensive automated test suites covering all core subsystems, security boundaries, and user workflows.
 
-### Run Master Acceptance Suite (47 Comprehensive Tests)
-```powershell
-$env:PYTHONPATH="D:\PrivateAI\libs;D:\PrivateAI\app"
-D:\PrivateAI\bin\python\python.exe C:\Users\Jivan\.gemini\antigravity-ide\brain\6cb21a47-f2b2-488c-84ec-85faa90e9975\scratch\test_master_acceptance.py
-```
-*Result: 47/47 Tests Passed (100%).*
+To run the test suites, open a terminal at the repository root, activate your virtual environment, and execute:
 
-### Run Upgrade Regression Suite (24 Baseline Tests)
-```powershell
-$env:PYTHONPATH="D:\PrivateAI\libs;D:\PrivateAI\app"
-D:\PrivateAI\bin\python\python.exe D:\PrivateAI\app\test_upgrade_suite.py
-```
-*Result: 24/24 Tests Passed (100%).*
+```cmd
+:: Activate virtual environment
+call .venv\Scripts\activate
 
-### Run Phase 3 Workstation Suite (13 Workstation Tests)
-```powershell
-$env:PYTHONPATH="D:\PrivateAI\libs;D:\PrivateAI\app"
-D:\PrivateAI\bin\python\python.exe C:\Users\Jivan\.gemini\antigravity-ide\brain\6cb21a47-f2b2-488c-84ec-85faa90e9975\scratch\test_phase3_suite.py
+:: 1. Master Production Verification Suite (50 validation criteria)
+python app/test_master_production_suite.py
+
+:: 2. Customer Acceptance Suite (End-to-end user workflows)
+python app/test_final_customer_acceptance.py
+
+:: 3. Capability & Regression Suite (32 subsystem capabilities)
+python app/test_upgrade_suite.py
+
+:: 4. Autonomous Task Agent & Tools Suite
+python app/test_upgrade_tasks_suite.py
+
+:: 5. Password Security & Workspace Lock Suite
+python app/test_password_security.py
+
+:: 6. Reliability & Edge Case Suite
+python app/test_reliability_suite.py
+
+:: 7. Startup Flow & Quarantine Isolation Suite
+python app/test_startup_flow.py
+
+:: 8. Dynamic Recommendations Engine Suite
+python app/test_recommendations.py
+
+:: 9. GUI Integration & Headless Mock Suite
+python app/test_gui_integration.py
+
+:: 10. UI Theme & Visual Polish Suite
+python app/test_final_polish_suite.py
 ```
-*Result: 13/13 Tests Passed (100%).*
 
 ---
 
-## 📋 Data Safety Guarantee
-- **Zero Files Deleted**: All existing files, models, documents, and backups are strictly preserved.
-- **Zero Database Resets**: Existing SQLite tables and 20 answer cache records remain intact.
-- **Zero Vector Store Loss**: All 1,241 ChromaDB chunks across 6 documents are preserved.
-- **Zero Cloud Leakage**: Infinity AI runs entirely on local hardware with zero external dependencies.
+## 🛡️ Privacy & Data Preservation Principles
+- **Non-Destructive Design**: Workstation operations are architected to prevent accidental overwriting or deletion of user documents, conversations, and model weights.
+- **Preserved Migration History**: Database schema migrations are structured to non-destructively preserve historical SQLite records and cached answers.
+- **Persistent Local Embeddings**: ChromaDB vector collections remain strictly stored on local disk across sessions.
+- **Air-Gapped Operation**: Designed for offline execution with zero telemetry or required cloud dependencies.
